@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -12,7 +12,6 @@ export default function SignupPage() {
     password: "",
     username: "",
   });
-
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
@@ -21,10 +20,10 @@ export default function SignupPage() {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user);
       console.log("Signup success", response.data);
-      toast.success("Signup success");
       router.push("/login");
     } catch (error: any) {
       console.log("Signup failed", error.message);
+
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -60,7 +59,7 @@ export default function SignupPage() {
       <input
         className="p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black"
         id="email"
-        type="email"
+        type="text"
         value={user.email}
         onChange={(e) => setUser({ ...user, email: e.target.value })}
         placeholder="email"
